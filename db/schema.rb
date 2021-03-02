@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_231432) do
+ActiveRecord::Schema.define(version: 2021_03_02_072752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,66 @@ ActiveRecord::Schema.define(version: 2021_02_26_231432) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.bigint "user_id_id"
+    t.integer "parent_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id_id"], name: "index_comments_on_user_id_id"
+  end
+
+  create_table "followers", force: :cascade do |t|
+    t.bigint "follower_id"
+    t.bigint "following_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["follower_id"], name: "index_followers_on_follower_id"
+    t.index ["following_id"], name: "index_followers_on_following_id"
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id_id"
+    t.bigint "recipe_id_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id_id"], name: "index_likes_on_recipe_id_id"
+    t.index ["user_id_id"], name: "index_likes_on_user_id_id"
+  end
+
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.string "quantity"
+    t.bigint "recipe_id_id"
+    t.bigint "ingredient_id_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ingredient_id_id"], name: "index_recipe_ingredients_on_ingredient_id_id"
+    t.index ["recipe_id_id"], name: "index_recipe_ingredients_on_recipe_id_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.string "name"
+    t.string "prep_time"
+    t.string "cook_time"
+    t.text "directions"
+    t.string "category"
+    t.integer "total_likes_count", default: 0
+    t.integer "total_comments_count", default: 0
+    t.bigint "user_id_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id_id"], name: "index_recipes_on_user_id_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -47,6 +107,8 @@ ActiveRecord::Schema.define(version: 2021_02_26_231432) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "total_followers_count", default: 0
+    t.integer "total_following_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
