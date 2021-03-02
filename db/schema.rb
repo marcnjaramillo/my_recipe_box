@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_072752) do
+ActiveRecord::Schema.define(version: 2021_03_02_075407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2021_03_02_072752) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "body"
+    t.text "body", null: false
     t.bigint "user_id_id"
     t.integer "parent_id"
     t.string "commentable_type"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2021_03_02_072752) do
   end
 
   create_table "ingredients", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2021_03_02_072752) do
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
-    t.string "quantity"
+    t.string "quantity", null: false
     t.bigint "recipe_id_id"
     t.bigint "ingredient_id_id"
     t.datetime "created_at", precision: 6, null: false
@@ -83,11 +83,11 @@ ActiveRecord::Schema.define(version: 2021_03_02_072752) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.string "name"
-    t.string "prep_time"
-    t.string "cook_time"
-    t.text "directions"
-    t.string "category"
+    t.string "name", null: false
+    t.string "prep_time", null: false
+    t.string "cook_time", null: false
+    t.text "directions", null: false
+    t.string "category", null: false
     t.integer "total_likes_count", default: 0
     t.integer "total_comments_count", default: 0
     t.bigint "user_id_id"
@@ -97,11 +97,11 @@ ActiveRecord::Schema.define(version: 2021_03_02_072752) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "role"
+    t.string "role", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
