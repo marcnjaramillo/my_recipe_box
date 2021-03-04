@@ -1,0 +1,70 @@
+<div class="row">
+
+    <div class="col">
+      <h1>
+        <%= @recipe.name.split.map(&:capitalize).join(' ') %>
+      </h1>
+      <h4> Recipe by: <%#= link_to @recipe.user.username.capitalize, user_path(@recipe.user), id: "user" %></h4>
+    </div>
+    <div class="col">
+      <h2>Category</h2>
+        <p><%= @recipe.category %></p>
+      <h2>Prep Time</h2>
+        <p><%= @recipe.prep_time %> minute(s)</p>
+      <h2>Cook Time</h2>
+        <p><%= @recipe.cook_time %> minute(s)</p>
+    </div>
+    <div class="col">
+      <%= image_tag @recipe.image, class: "img-thumbnail w-75" %>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h2>Ingredients</h2>
+    <ul id="ingredients-list">
+      <% @recipe.recipe_ingredients.each do |ri| %>
+        <li class="ingredients"><%= ri.quantity %> <%= ri.ingredient.name %> </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <h2>Directions</h2>
+    <%= @recipe.directions %>
+  </div>
+  <div class="col-md-12">
+    <% if current_user %>
+    <h4>Add a comment:</h4>
+    <%= form_for @comment, url: recipe_comments_path(@recipe, @comment)  do |f| %>
+    <%= f.text_area :content, class: 'commentBox form-control' %>
+    <button type="submit" class="btn btn-sm btn-primary">Create Comment</button>
+    <% end %><br>
+    <% else %>
+    <p>Please log in order to add a comment.</p>
+    <% end %>
+  </div>
+  <div class="col-md-12">
+    <div class="well-white">
+      <h2>Comment(s)</h2>
+      <hr>
+      <div id="submitted-comments">
+        <% @recipe.comments.each do |comment| %>
+        <blockquote>
+          <div class="well-white well-white" id="comment-<%= comment.id %>">
+            <strong class="commentUserName"><%= comment.user.username %></strong> commented: <span class="commentContent"><%= comment.content %> </span>
+            <% if current_user == @recipe.user || current_user == @comment.user %>
+              <span><%= link_to '',recipe_comment_path(@recipe, comment), method: :delete,
+              data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></span>
+            <% end %>
+          </div>
+        </blockquote>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if current_user == @recipe.user %>
+<%= link_to "Edit Recipe", edit_recipe_path, class: "btn btn-sm btn-info" %>
+<%= link_to "Delete Recipe", recipe_path, method: :delete, class: "btn btn-sm btn-danger" %>
+<% end %>
+<%= link_to "Recipes Home", recipes_path, class: "btn btn-sm btn-secondary" %>

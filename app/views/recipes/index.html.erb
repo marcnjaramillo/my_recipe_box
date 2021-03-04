@@ -1,0 +1,17 @@
+<div class="text-center">
+  <h1>Recipes</h1>
+</div>
+<div class="row">
+  <% @recipes.each do |recipe| %>
+  <div class="col-xs-12 col-sm-4">
+    <div class="card" style="width: 18rem;">
+    <%= image_tag recipe.image, class: "img-fluid img-thumbnail" %>
+    <div class="card-body">
+      <h5 class="card-title"><%= recipe.name.titleize %></h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <%= link_to "View Recipe", recipe_path(recipe)%>
+    </div>
+    </div>
+  </div>
+  <% end %>
+</div>
