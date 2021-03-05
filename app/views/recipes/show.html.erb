@@ -42,25 +42,19 @@
     <p>Please log in order to add a comment.</p>
     <% end %>
   </div>
-  <div class="col-md-12">
-    <div class="well-white">
-      <h2>Comment(s)</h2>
-      <hr>
-      <div id="submitted-comments">
-        <% @recipe.comments.each do |comment| %>
-        <blockquote>
-          <div class="well-white well-white" id="comment-<%= comment.id %>">
-            <strong class="commentUserName"><%= comment.user.username %></strong> commented: <span class="commentContent"><%= comment.content %> </span>
-            <% if current_user == @recipe.user || current_user == @comment.user %>
-              <span><%= link_to '',recipe_comment_path(@recipe, comment), method: :delete,
-              data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></span>
-            <% end %>
-          </div>
-        </blockquote>
-        <% end %>
-      </div>
-    </div>
-  </div>
+<h4>Comments</h4>
+
+<% if user_signed_in? %>
+  <%= render partial: "comments/form", locals: { comment: Comment.new, commentable: @recipe } %>
+<% else %>
+  <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "login", new_user_session_path %> to comment
+<% end %>
+
+<%= turbo_stream_from @recipe, :comments %>
+
+<%= tag.div id: "#{dom_id(@recipe)}_comments" do %>
+  <%= render partial: "comments/comment_with_replies", collection: @recipe.comments.where(parent_id: nil), as: :comment %>
+<% end %>
 </div>
 
 <% if current_user == @recipe.user %>
