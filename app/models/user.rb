@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_many :comments
+
+  def self.roles
+    ['Admin', 'User']
+  end
 end
