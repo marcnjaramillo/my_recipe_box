@@ -24,6 +24,7 @@
     <%= f.file_field :image %>
   </div>
 </div>
+
 <div class="row">
   <div class="col">
     <h3>Time</h3>
@@ -43,18 +44,26 @@
     </div>
   </div>
 </div>
+
 <div class="row" id="ingredients-directions-fields">
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <h3>Ingredients</h3>
-  <div id="recipe-ingredients">
-    <%= f.fields_for(:recipe_ingredients) do |ri| %>
-    <%= render 'recipe_ingredient_fields', f: ri  %>
+  <div data-controller="nested-form">
+    <template data-nested-form-target="template">
+      <%= f.fields_for :recipe_ingredients, RecipeIngredient.new, child_index: 'NEW_RECORD' do |recipe_ingredient| %>
+        <%= render "recipe_ingredient_fields", form: recipe_ingredient %>
+      <% end %>
+    </template>
+
+    <%= f.fields_for :recipe_ingredients do |recipe_ingredient| %>
+      <%= render "recipe_ingredient_fields", form: recipe_ingredient %>
     <% end %>
+
+    <div class="mb-3" data-nested-form-target="links">
+      <%= link_to "Add Ingredient", "#", class: "btn btn-outline-primary", data: { action: "click->nested-form#add_association" } %>
+    </div>
   </div>
-    <%= link_to_add_association "Add Ingredient", f, :recipe_ingredients, class: "btn btn-secondary form-button", data:
-    { association_insertion_node: '#recipe-ingredients', association_insertion_method: :before },
-    :wrap_object => Proc.new {|ri| ri.build_ingredient; ri } %>
-  </div>
+
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <h3>Directions</h3>
     <div id="directions">
