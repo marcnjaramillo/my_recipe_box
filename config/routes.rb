@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'static#home'
-
+  get '/profile/:id', to: 'static#profile', as: "profile"
   devise_for :users
   
   resources :recipes do
