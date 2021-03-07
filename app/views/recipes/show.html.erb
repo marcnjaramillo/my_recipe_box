@@ -1,64 +1,54 @@
+<section class="container">
 <div class="row">
-
-    <div class="col">
-      <h1>
-        <%= @recipe.name.split.map(&:capitalize).join(' ') %>
-      </h1>
-      <h4> Recipe by: <%#= link_to @recipe.user.username.capitalize, user_path(@recipe.user), id: "user" %></h4>
-    </div>
-    <div class="col">
-      <h2>Category</h2>
-        <p><%= @recipe.category %></p>
-      <h2>Prep Time</h2>
-        <p><%= @recipe.prep_time %> minute(s)</p>
-      <h2>Cook Time</h2>
-        <p><%= @recipe.cook_time %> minute(s)</p>
-    </div>
-    <div class="col">
-      <%= image_tag @recipe.image, class: "img-thumbnail w-75" %>
-    </div>
+<div class="col col-md-8">
+<%= image_tag @recipe.image, class: "img-fluid" %>
+<h4 class="recipe-creator"> Recipe by: <%= link_to @recipe.user.first_name.capitalize, profile_path(@recipe.user.id), id: "user" %></h4>
+<h1 class="recipe-header">
+<%= @recipe.name.split.map(&:capitalize).join(' ') %>
+</h1>
+<div class="recipe-info">
+<p>Category: <strong><%= @recipe.category %></strong></p>
+<p>Prep: <strong><%= @recipe.prep_time %> min</strong></p>
+<p>Cook: <strong><%= @recipe.cook_time %> min</strong></p>
 </div>
-<div class="row">
-  <div class="col-md-6">
-    <h2>Ingredients</h2>
-    <ul id="ingredients-list">
-      <% @recipe.recipe_ingredients.each do |ri| %>
-        <li class="ingredients"><%= ri.quantity %> <%= ri.ingredient.name %> </li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="col-md-6">
-    <h2>Directions</h2>
-    <%= @recipe.directions %>
-  </div>
-  <div class="col-md-12">
-    <% if current_user %>
-    <h4>Add a comment:</h4>
-    <%= form_for @comment, url: recipe_comments_path(@recipe, @comment)  do |f| %>
-    <%= f.text_area :content, class: 'commentBox form-control' %>
-    <button type="submit" class="btn btn-sm btn-primary">Create Comment</button>
-    <% end %><br>
-    <% else %>
-    <p>Please log in order to add a comment.</p>
-    <% end %>
-  </div>
+<div class="recipe-details">
+<section class="ingredients">
+<h2>Ingredients</h2>
+<ul id="ingredients-list">
+<% @recipe.recipe_ingredients.each do |ri| %>
+<li class="ingredients"><%= ri.quantity %> <%= ri.ingredient.name %> </li>
+<% end %>
+</ul>
+</section>
+<section class="directions">
+<h2>Directions</h2>
+<%= @recipe.directions %>
+</section>
+</div>
+
 <h4>Comments</h4>
 
 <% if user_signed_in? %>
-  <%= render partial: "comments/form", locals: { comment: Comment.new, commentable: @recipe } %>
+<%= render partial: "comments/form", locals: { comment: Comment.new, commentable: @recipe } %>
 <% else %>
-  <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "login", new_user_session_path %> to comment
+<%= link_to "Sign up", new_user_registration_path %> or <%= link_to "login", new_user_session_path %> to comment
 <% end %>
 
 <%= turbo_stream_from @recipe, :comments %>
 
 <%= tag.div id: "#{dom_id(@recipe)}_comments" do %>
-  <%= render partial: "comments/comment_with_replies", collection: @recipe.comments.where(parent_id: nil), as: :comment %>
+<%= render partial: "comments/comment_with_replies", collection: @recipe.comments.where(parent_id: nil), as: :comment %>
 <% end %>
-</div>
 
-<% if current_user == @recipe.user %>
+
+<% if current_user.id == @recipe.user_id %>
 <%= link_to "Edit Recipe", edit_recipe_path, class: "btn btn-sm btn-info" %>
 <%= link_to "Delete Recipe", recipe_path, method: :delete, class: "btn btn-sm btn-danger" %>
 <% end %>
 <%= link_to "Recipes Home", recipes_path, class: "btn btn-sm btn-secondary" %>
+</div>
+<div class="col-md-4">
+<h2>Check out these other recipes</h2>
+</div>
+</div>
+</section>
