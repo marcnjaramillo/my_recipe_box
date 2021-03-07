@@ -3,8 +3,9 @@
     <div class="form-group">
       <%= form.text_field(:quantity, class: "form-control w-40", placeholder: "Quantity") %>
 
-      <%= form.fields_for(:ingredient) do |ri_ingredient| %>
+      <%= form.fields_for :ingredient, Ingredient.new do |ri_ingredient| %>
       <%= ri_ingredient.text_field(:name, class: "form-control w-40", placeholder: "Ingredient Name") %>
+      <%= form.hidden_field :ingredient_id, as: :hidden %>
       <% end %>
       <%= link_to "Remove", "#", data: { action: "click->nested-form#remove_association" } %>
     </div>
