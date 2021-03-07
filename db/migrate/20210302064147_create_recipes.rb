@@ -8,7 +8,7 @@ class CreateRecipes < ActiveRecord::Migration[6.0]
       t.string :category
       t.integer :total_likes_count, default: 0
       t.integer :total_comments_count, default: 0
-      t.references :user_id
+      t.references :user
       t.timestamps
     end
   end
