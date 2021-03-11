@@ -18,6 +18,7 @@ module Commentable
       if @comment.save
         comment = Comment.new
         comment.nesting = comment.set_nesting
+
         format.turbo_stream {
           if @parent
             # A successful reply to another comment, replace and hide this form

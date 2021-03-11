@@ -8,7 +8,7 @@
   </div>
 
   <div id="<%= dom_id(comment) %>_comments">
-    <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
+    <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, parent_id: reply_to_comment_id(comment, comment.nesting), data: { comment_reply_target: "form" }, class: "d-none" } %>
     <%= render partial: "comments/comment_with_replies", collection: comment.comments, as: :comment, nesting: comment.nesting %>
   </div>
 </div>
