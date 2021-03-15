@@ -10,10 +10,17 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["form"]
+  static targets = ["form", "hide", "unhide"]
 
   toggle(event) {
     event.preventDefault()
     this.formTarget.classList.toggle("d-none")
   }
+
+  show(event) {
+    event.preventDefault()
+    this.unhideTarget.classList.remove("d-none")
+    this.hideTarget.classList.add("d-none")
+  }
+
 }

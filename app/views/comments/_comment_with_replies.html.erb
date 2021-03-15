@@ -1,14 +1,30 @@
 <%= turbo_stream_from comment, :comments %>
 
-<div class="pl-3 border-left" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply">
+<div id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply">
   <%= render comment %>
 
   <div class="text-sm">
     <%= link_to "Reply", "#", data: { action: "click->comment-reply#toggle" } %>
   </div>
 
+<% if comment.nesting.blank? || comment.nesting < Comment.max_nesting %>
+  <div class="pl-3 border-left" id="<%= dom_id(comment) %>_comments">
+    <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
+    <div class="d-none" data-comment-reply-target="unhide">    
+      <%= render partial: "comments/comment_with_replies", collection: comment.comments, as: :comment %>
+    </div>
+  </div>  
+<% else %>
   <div id="<%= dom_id(comment) %>_comments">
-    <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, parent_id: reply_to_comment_id(comment, comment.nesting), data: { comment_reply_target: "form" }, class: "d-none" } %>
-    <%= render partial: "comments/comment_with_replies", collection: comment.comments, as: :comment, nesting: comment.nesting %>
-  </div>
+    <%= render partial: "comments/form", locals: { commentable: comment, comment: Comment.new, data: { comment_reply_target: "form" }, class: "d-none" } %>
+    <div class="d-none" data-comment-reply-target="unhide">    
+      <%= render partial: "comments/comment_with_replies", collection: comment.comments, as: :comment %>
+    </div>
+  </div>  
+<% end %>
+<% if comment.comments.present? %>
+  <div>
+    <%= link_to "Show More", "#", data: { action: "click->comment-reply#show", comment_reply_target: "hide" } %>
+  </div> 
+<% end %>
 </div>
