@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_093925) do
+ActiveRecord::Schema.define(version: 2021_03_10_050055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,14 +45,15 @@ ActiveRecord::Schema.define(version: 2021_03_02_093925) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body", null: false
-    t.bigint "user_id_id"
+    t.bigint "user_id"
     t.integer "parent_id"
     t.string "commentable_type"
     t.bigint "commentable_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "nesting"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
-    t.index ["user_id_id"], name: "index_comments_on_user_id_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "followers", force: :cascade do |t|
@@ -71,22 +72,22 @@ ActiveRecord::Schema.define(version: 2021_03_02_093925) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.bigint "user_id_id"
-    t.bigint "recipe_id_id"
+    t.bigint "user_id"
+    t.bigint "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["recipe_id_id"], name: "index_likes_on_recipe_id_id"
-    t.index ["user_id_id"], name: "index_likes_on_user_id_id"
+    t.index ["recipe_id"], name: "index_likes_on_recipe_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
     t.string "quantity", null: false
-    t.bigint "recipe_id_id"
-    t.bigint "ingredient_id_id"
+    t.bigint "recipe_id"
+    t.bigint "ingredient_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ingredient_id_id"], name: "index_recipe_ingredients_on_ingredient_id_id"
-    t.index ["recipe_id_id"], name: "index_recipe_ingredients_on_recipe_id_id"
+    t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -97,10 +98,10 @@ ActiveRecord::Schema.define(version: 2021_03_02_093925) do
     t.string "category", null: false
     t.integer "total_likes_count", default: 0
     t.integer "total_comments_count", default: 0
-    t.bigint "user_id_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id_id"], name: "index_recipes_on_user_id_id"
+    t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -70,7 +70,10 @@ class RecipesController < ApplicationController
       :directions,
       recipe_ingredients_attributes: [
       :id,
+      :recipe_id,
+      :ingredient_id,
       :quantity,
-      ingredient_attributes: [:id, :name]])
+      :_destroy,
+      ingredient_attributes: [:id, :name, :_destroy]])
   end
 end

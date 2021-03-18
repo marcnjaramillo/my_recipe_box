@@ -1,10 +1,14 @@
-<div class="form-inline">
-  <div class="form-group nested-fields">
-		<%= f.text_field(:quantity, class: "form-control w-40", placeholder: "Quantity") %>
+<%= content_tag :div, class: "nested-fields", data: { new_record: form.object.new_record? } do %>
+  <div class="form-inline">
+    <div class="form-group">
+      <%= form.text_field(:quantity, class: "form-control w-40", placeholder: "Quantity") %>
 
-		<%= f.fields_for(:ingredient) do |ri_ingredient| %>
-		<%= ri_ingredient.text_field(:name, class: "form-control w-40", placeholder: "Ingredient Name") %>
-	  <% end %>
-		<%= link_to_remove_association "X", f, class: "btn btn-danger" %>
-	</div>
-</div>
+      <%= form.fields_for :ingredient, Ingredient.new do |ri_ingredient| %>
+      <%= ri_ingredient.text_field(:name, class: "form-control w-40", placeholder: "Ingredient Name") %>
+      <%= form.hidden_field :ingredient_id, as: :hidden %>
+      <% end %>
+      <%= link_to "Remove", "#", data: { action: "click->nested-form#remove_association" } %>
+    </div>
+  </div>
+  <%= form.hidden_field :_destroy, as: :hidden %>
+<% end %>

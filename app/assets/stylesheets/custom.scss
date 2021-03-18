@@ -1,0 +1,27 @@
+.recipe-info {
+  display: flex;
+}
+
+.recipe-details {
+  clear: both;
+  display: flex;
+  flex-direction: row;
+}
+
+.ingredients {
+  flex: 0 1 100%;
+  margin-right: 25px;
+}
+
+.directions {
+  flex: 0 1 100%;
+  margin-left: 25px;
+}
+
+.recipe-creator {
+  text-align: center;
+}
+
+.recipe-header {
+  text-align: center;
+}

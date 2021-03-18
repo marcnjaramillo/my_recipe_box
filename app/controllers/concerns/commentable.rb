@@ -11,10 +11,13 @@ module Commentable
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
     @comment.parent_id = @parent&.id
+    @comment.nesting = @comment.set_nesting
 
+    
     respond_to do |format|
       if @comment.save
         comment = Comment.new
+        
         format.turbo_stream {
           if @parent
             # A successful reply to another comment, replace and hide this form
