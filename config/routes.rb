@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root to: 'static#home'
-  get '/profile/:id', to: 'static#profile', as: "profile"
+  get "/dashboard" => "users#index"
+  get "/profile/:username" => "users#profile", as: :profile
+  get "/followers" => "followers#index"
+  post "follow/user" => "users#follow_user", as: :follow_user
+
   devise_for :users
   
   resources :recipes do
