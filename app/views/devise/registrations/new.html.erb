@@ -13,6 +13,11 @@
     <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name" %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :username %><br />
+    <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+  </div>
+
   <div class="col-md-4 ml-auto">
     <%= f.select :role, options_for_select(User.roles), :prompt => "Select a role" %>
   </div>
