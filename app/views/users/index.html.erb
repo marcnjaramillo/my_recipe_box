@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <% @recipes.each do |recipe| %>
+      <div class="post">
+        <div class="post-meta">
+          <% if recipe.user.profile_image.attached? %>
+            <%= link_to image_tag(recipe.user.profile_image.variant(resize: "50x50"), class: "profile-pic"), profile_path(recipe.user.username) %>
+          <% end %>
+         <%= link_to recipe.user.username, profile_path(recipe.user.username), class:"text-dark"  %>
+         </div>
+          <% if recipe.image.attached? %>
+            <%= image_tag recipe.image, class: "img img-fluid" %>
+          <% end %>
+          <div class="recipe-details">
+            <div class="recipe-actions">
+              <i class="fa fa-heart like-<%= recipe.id %> <%= "active" if recipe_liked_by_user?(recipe.id) %> recipe-like fa-2x" data-id="<%= recipe.id %>"></i>
+              <%= link_to recipe_path(recipe.id) do %>
+                <i class="fa fa-comment fa-2x recipe-comment"></i>
+              <% end %>
+            </div>
+            <p><strong id="recipe-<%= recipe.id %>-likes" ><%= recipe.total_likes_count %> likes</strong></p>
+            <p><strong><%= link_to recipe.user.username, profile_path(recipe.user.username), class: "text-dark" %></strong><%= simple_format recipe.description %></p>
+            <p class="text-muted"><%= time_ago_in_words recipe.created_at %> ago</p>
+            <%#= render "recipes/comments", recipe: recipe, comments: Comment.includes(:user).where(recipe_id: recipe.id) %>
+          </div>
+          </div>
+        </div>
+        <% end %>
+    </div>
+    <div class="col-4">
+      <div class="account-summary">
+        <% if current_user.profile_image.attached? %>
+          <%= link_to image_tag(current_user.profile_image.variant(resize: "50x50"), class: "profile-pic float-left m-r-15"), profile_path(current_user.username) %>
+        <% end %>
+        <p class="m-0"><strong><%= link_to current_user.username, profile_path(current_user.username), class:"text-dark"  %></strong><br/><%= current_user.full_name %></p>
+      </div>
+      <div class="follower-suggestions">
+        <%= link_to "View All", "#", class:"float-right text-dark" %>
+        <p class="text-muted">Suggestions for you</p>
+        <%= render "users/follower_suggestions"%>
+      </div>
+    </div>
+  </div>
+</div>

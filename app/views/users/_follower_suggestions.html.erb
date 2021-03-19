@@ -1,0 +1,18 @@
+<% @follower_suggestions.each do |user| %>
+  <div class="recommended-follower">
+    <div class="row">
+      <div class=" col-sm-3 col-2">
+        <% if user.profile_image.attached? %>
+          <%= link_to profile_image(user, 40), profile_path(user.username) %>
+        <% end %>
+      </div>
+      <div class="col-sm-9 col-10">
+        <%= link_to user.username, profile_path(user.username), class:"text-dark"  %>
+        <%= form_tag follow_user_path, method: :post, class: "float-right" do %>
+          <%= hidden_field_tag :follow_id, user.id %>
+          <%= submit_tag "Follow", class: "btn btn-info btn-sm" %>
+        <% end %>
+        <p class="text-muted"><%= user.created_at > 1.days.ago ? "New to MyRecipeBox" : "Followed by #{user.total_followers} users" %></p>     
+      </div>
+  </div>
+<% end %>
