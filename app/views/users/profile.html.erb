@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <%= profile_image @user, 200 %>
+    </div>
+    <div class="col-8 text-left">
+      <div class="row">      
+        <div class="col-8">
+          <h1 class="float-left"><%= @user.username %></h1>
+          <%= link_to "Edit Profile", edit_user_registration_path,class: "btn btn-muted btn-custom float-right" if can_edit_profile?(@user.id) %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="profile-stats"><%= @user.recipes.count %> recipes</div>
+        </div>
+        <div id="followers" class="col-4">
+          <div class="profile-stats"><%= @user.total_following %> followers</div>
+        </div>
+        <div class="col-4">
+          <div class="profile-stats"><%= @user.total_followers %> following</div>
+        </div>
+      </div>
+      <% if current_user.id != @user.id %>
+        <%= form_tag follow_user_path, method: :post, id: "follow-form", class: "float-right" do %>
+          <%= hidden_field_tag :follow_id, @user.id %>
+          <%= submit_tag "Follow", id: "follow", class: "btn btn-info btn-sm" %>
+        <% end %>
+      <% end %>
+
+      <p><%= @user.username %></p>
+    </div>
+  </div>
+  <div class="row profile-recipes">
+      <% @recipes.each do |recipe| %>
+        <div class="col-4">
+          <div class="recipe recipe-square" style="background: url(<%= rails_blob_url(recipe.image) %>) no-repeat center top">
+            <%= link_to recipe_path(recipe) do  %>
+              <div class="recipe-stats">
+                <div class="inner">
+                  <i class="fa fa-heart"></i> <%#= recipe.total_likes_count %>
+                  <i class="fa fa-comment m-l-15"></i><%#= recipe.total_comments_count %> 
+                </div>
+              </div>
+            <% end %>
+          </div>        
+        </div>
+      <%end%>
+  </div>
+</div>
