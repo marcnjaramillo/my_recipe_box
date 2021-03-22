@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <%= profile_image @user, 200 %>
+      <%#= profile_image @user, 200 %>
     </div>
     <div class="col-8 text-left">
       <div class="row">      
@@ -14,20 +14,11 @@
         <div class="col-4">
           <div class="profile-stats"><%= @user.recipes.count %> recipes</div>
         </div>
-        <div id="followers" class="col-4">
-          <div class="profile-stats"><%= @user.total_following %> followers</div>
-        </div>
-        <div class="col-4">
-          <div class="profile-stats"><%= @user.total_followers %> following</div>
-        </div>
+        <section class="stats">
+          <%= render 'shared/relationship_stats' %>
+        </section>
       </div>
-      <% if current_user.id != @user.id %>
-        <%= form_tag follow_user_path, method: :post, id: "follow-form", class: "float-right" do %>
-          <%= hidden_field_tag :follow_id, @user.id %>
-          <%= submit_tag "Follow", id: "follow", class: "btn btn-info btn-sm" %>
-        <% end %>
-      <% end %>
-
+      <%= render 'follow_form' if user_signed_in? && current_user.id != @user.id %>
       <p><%= @user.username %></p>
     </div>
   </div>
