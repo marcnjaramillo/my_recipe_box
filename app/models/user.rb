@@ -4,21 +4,31 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_one_attached :profile_image
+  # has_one_attached :profile_image
   has_many :recipes, dependent: :destroy
   has_many :comments
-  has_many :followers, class_name: "Follower", foreign_key: "follower_id", dependent: :destroy
-  has_many :followings, through: :followers, source: :following
+  has_many :active_relationships, class_name:  "Relationship", foreign_key: "follower_id", dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship", foreign_key: "followed_id", dependent:   :destroy
+  has_many :following, through: :active_relationships,  source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
 
   def self.roles
     ['Admin', 'User']
   end
 
-  def total_followers
-    Follower.where(follower_id: self.id).count
+  def follow(other_user)
+    following << other_user unless self == other_user
   end
 
-  def total_following
-    Follower.where(following_id: self.id).count
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+  def to_param
+    username
   end
 end
