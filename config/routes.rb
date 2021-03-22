@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   root to: 'static#home'
-  get "/dashboard" => "users#index"
-  get "/profile/:username" => "users#profile", as: :profile
+  # get "/profile/:username" => "users#profile", as: :profile
 
   devise_for :users, :path => 'account'
 
+  get 'users/:username/profile', to: 'users#show', as: :user
   resources :users, param: :username do
     member do
       get :following, :followers

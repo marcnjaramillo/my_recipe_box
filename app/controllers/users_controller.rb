@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user
 
 
-  def profile
+  def show
     @recipes = current_user.recipes
   end
 
