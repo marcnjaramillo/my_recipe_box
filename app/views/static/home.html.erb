@@ -1,4 +1,17 @@
-<% @recipes.each do |recipe| %>
-  <%= image_tag recipe.image, class: "img-fluid" %>
-  <%= recipe.name %>
-<% end %>
+<main class="container-fluid">
+  <div class="row">
+    <section class="flex-col col-xs-12 col-lg-12" id="home-heading">
+        <figure>
+          <%= image_tag "cooking.jpg", class: "hero-image img-fluid", alt: "cutting board and bowls on wooden table" %>
+        </figure>
+    </section>
+  </div>
+  <div class="row">
+    <section class="flex-col col-xs-12 col-lg-12" >
+    <% @recipes.each do |recipe| %>
+      <%= image_tag recipe.image, class: "img-fluid" %>
+      <%= recipe.name %>
+    <% end %>
+    </section>
+  </div>
+</main>
