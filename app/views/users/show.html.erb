@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <%#= profile_image @user, 200 %>
+    </div>
+    <div class="col-8 text-left">
+      <div class="row">      
+        <div class="col-8">
+          <h1 class="float-left"><%= @user.username %></h1>
+          <%= link_to "Edit Profile", edit_user_registration_path,class: "btn btn-muted btn-custom float-right" if can_edit_profile?(@user.id) %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="profile-stats"><%= @user.recipes.count %> recipes</div>
+        </div>
+        <section class="stats">
+          <%= render 'shared/relationship_stats' %>
+        </section>
+      </div>
+      <%= render 'follow_form' if user_signed_in? && current_user.id != @user.id %>
+      <p><%= @user.username %></p>
+    </div>
+  </div>
+  <div class="row profile-recipes">
+      <% @recipes.each do |recipe| %>
+        <div class="col-4">
+          <div class="recipe recipe-square" style="background: url(<%= rails_blob_url(recipe.image) %>) no-repeat center top">
+            <%= link_to recipe_path(recipe) do  %>
+              <div class="recipe-stats">
+                <div class="inner">
+                  <i class="fa fa-heart"></i> <%#= recipe.total_likes_count %>
+                  <i class="fa fa-comment m-l-15"></i><%#= recipe.total_comments_count %> 
+                </div>
+              </div>
+            <% end %>
+          </div>        
+        </div>
+      <%end%>
+  </div>
+</div>

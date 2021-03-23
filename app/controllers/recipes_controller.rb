@@ -67,13 +67,13 @@ class RecipesController < ApplicationController
       :cook_time,
       :user_id,
       :image,
-      :directions,
       recipe_ingredients_attributes: [
       :id,
       :recipe_id,
       :ingredient_id,
       :quantity,
       :_destroy,
-      ingredient_attributes: [:id, :name, :_destroy]])
+      ingredient_attributes: [:id, :name, :_destroy]],
+      direction_attributes: [:id, :body, :_destroy])
   end
 end

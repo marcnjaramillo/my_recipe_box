@@ -7,26 +7,45 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarScroll">
     <ul class="navbar-nav ml-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
-      <% if user_signed_in? %>
-      <li class="nav-item">
-        <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", :method => :delete %>
-      </li>
-      <% end %>
       <li class="nav-item <%=is_active('/')%>">
         <%= link_to "Home", root_path, class: "nav-link" %>
       </li>
-      <li class="nav-item <%#=is_active('/about')%>">
-        <%#= link_to "About", about_path, class: "nav-link" %>
+      <% if user_signed_in? %>
+      <li class="nav-item dropdown <%=is_active('/profile/:username')%>">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          My Account
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+          <%= link_to "View My Profile", user_path(current_user.username), class: "nav-link" %>
+          
+          <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", :method => :delete %>
+        </div>
+      </li>
+      <li class="nav-item dropdown <%=nested_active('recipes')%>">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Recipes
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+          <%= link_to "View All Recipes", recipes_path, class: "nav-link" %>
+
+          <%= link_to "Create Recipe", new_recipe_path, class: "nav-link" %>
+
+          <%= link_to "Edit Recipe", edit_recipe_path(@recipe.id), class: "nav-link" if @recipe.present? %>
+        </div>
+      </li>
+      <% end %>
+      <% unless user_signed_in? %>
+      <li class="nav-item">
+        <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
       </li>
       <li class="nav-item <%=nested_active('recipes')%>">
-        <%= link_to "Recipes", recipes_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item <%#=nested_active('posts')%>">
-        <%#= link_to "Blog", posts_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item <%#=is_active('/contact/new')%>">
-        <%#= link_to "Contact", new_contact_path, class: "nav-link" %>
-      </li>
+        <%= link_to "View All Recipes", recipes_path, class: "nav-link" %>
+      </li>            
+      <% end %>
+
     </ul>
   </div>
 </nav>

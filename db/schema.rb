@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_050055) do
+ActiveRecord::Schema.define(version: 2021_03_02_093925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,22 +47,19 @@ ActiveRecord::Schema.define(version: 2021_03_10_050055) do
     t.text "body", null: false
     t.bigint "user_id"
     t.integer "parent_id"
+    t.integer "nesting"
     t.string "commentable_type"
     t.bigint "commentable_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "nesting"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "followers", force: :cascade do |t|
-    t.bigint "follower_id"
-    t.bigint "following_id"
+  create_table "directions", force: :cascade do |t|
+    t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["follower_id"], name: "index_followers_on_follower_id"
-    t.index ["following_id"], name: "index_followers_on_following_id"
   end
 
   create_table "ingredients", force: :cascade do |t|
@@ -94,7 +91,6 @@ ActiveRecord::Schema.define(version: 2021_03_10_050055) do
     t.string "name", null: false
     t.string "prep_time", null: false
     t.string "cook_time", null: false
-    t.text "directions", null: false
     t.string "category", null: false
     t.integer "total_likes_count", default: 0
     t.integer "total_comments_count", default: 0
@@ -104,19 +100,30 @@ ActiveRecord::Schema.define(version: 2021_03_10_050055) do
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
+    t.string "username", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "role", null: false
+    t.integer "followers_count", default: 0
+    t.integer "following_count", default: 0
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "total_followers_count", default: 0
-    t.integer "total_following_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
