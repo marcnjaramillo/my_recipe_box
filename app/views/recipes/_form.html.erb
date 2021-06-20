@@ -60,15 +60,19 @@
     <% end %>
 
     <div class="mb-3" data-nested-form-target="links">
-      <%= link_to "Add Ingredient", "#", class: "btn btn-outline-primary", data: { action: "click->nested-form#add_association" } %>
+      <%= link_to "Add Ingredient", "#", class: "btn btn-outline-primary", data: { action: "click->nested-ingredient#add_association" } %>
     </div>
   </div>
 
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <h3>Directions</h3>
     <div id="directions">
-      <%= f.text_field(:directions, class: "form-control", placeholder: "Directions") %>
+      <%= f.fields_for(:directions) do |direction| %>
+      <%= render 'direction_fields', f: direction %>
+      <% end %>
     </div>
+    <%= link_to "Add Step", "#", class: "btn btn-outline-secondary", data:
+    { action: "click->nested-direction#add_association" } %>
   </div>
 </div>
 <div class="row" id="submitted">

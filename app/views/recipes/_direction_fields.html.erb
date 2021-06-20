@@ -1,0 +1,9 @@
+<%= content_tag :div, class: "nested-direction-fields", data: { new_record: form.object.new_record? } do %>
+  <div class="form-inline">
+    <div class="form-group">
+      <%= form.text_field(:body, class: "form-control", placeholder: "Step (Ex: Fold in slowly)") %>
+      <%= link_to "Remove", "#", data: { action: "click->nested-direction-form#remove_association" } %>
+    </div>
+  </div>
+  <%= form.hidden_field :_destroy, as: :hidden %>
+<% end %>

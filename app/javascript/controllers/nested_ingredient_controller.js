@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["links", "template"]
 
   connect() {
-    this.wrapperClass = this.data.get("wrapperClass") || "nested-fields"
+    this.wrapperClass = this.data.get("wrapperClass") || "nested-ingredient-fields"
     console.log(this.wrapperClass)
   }
 
