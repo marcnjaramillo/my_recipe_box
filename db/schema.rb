@@ -58,8 +58,10 @@ ActiveRecord::Schema.define(version: 2021_03_02_093925) do
 
   create_table "directions", force: :cascade do |t|
     t.text "body", null: false
+    t.bigint "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id"], name: "index_directions_on_recipe_id"
   end
 
   create_table "ingredients", force: :cascade do |t|
