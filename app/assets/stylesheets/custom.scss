@@ -227,3 +227,18 @@ li.page-item {
     flex-direction: column;
   }
 }
+
+@media (min-width: 1440px) {
+  .signup-login-form {
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  .signup-login-redirect {
+    margin-top: 2rem;
+  }
+
+  form .form-group {
+    margin-bottom: 0.5rem;
+  }
+}
