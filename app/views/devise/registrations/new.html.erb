@@ -1,9 +1,13 @@
 <div class="signup-login-container">
-  <div class="signup-login-splash">
-    Let's get cookin'!
+  <div class="signup-splash">
+    <div class="dark-overlay">
+      <div class="signup-login-inner">
+      
+      </div>
+    </div>
   </div>
   <div class="signup-login-form">
-    <h2>Sign up</h2>
+    <h2>Sign Up</h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
