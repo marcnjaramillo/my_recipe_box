@@ -1,6 +1,6 @@
 $slate-grey: #736E6B;
 
-main {
+header {
   margin-top: 3.75rem;
 }
 
@@ -134,6 +134,33 @@ li.page-item {
 
 .signup-login-redirect {
   margin-top: 3rem;
+}
+
+// ====================================================
+// USER PROFILE STYLES
+// ====================================================
+
+.profile-header {
+  padding: 2rem 0;
+}
+
+.profile-image {
+  display: flex;
+  justify-content: center;
+
+  img {
+    border-radius: 25%;
+  }
+}
+
+.stats {
+  background-color: #6da3a5;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  a {
+    color: white;
+  }
 }
 
 // ====================================================
