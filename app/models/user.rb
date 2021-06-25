@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  # has_one_attached :profile_image
+  has_one_attached :profile_image
   has_many :recipes, dependent: :destroy
   has_many :comments
   has_many :active_relationships, class_name:  "Relationship", foreign_key: "follower_id", dependent:   :destroy
@@ -14,6 +14,10 @@ class User < ApplicationRecord
 
   def self.roles
     ['Admin', 'User']
+  end
+
+  def fullname
+    "#{first_name} #{last_name}"
   end
 
   def follow(other_user)
