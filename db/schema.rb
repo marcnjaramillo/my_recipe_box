@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 2021_03_02_093925) do
     t.string "username", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "role", null: false
+    t.string "role", default: "User", null: false
     t.integer "followers_count", default: 0
     t.integer "following_count", default: 0
     t.string "reset_password_token"
