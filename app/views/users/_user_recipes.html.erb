@@ -1,0 +1,20 @@
+<div class="row profile-recipes">
+  <% if @recipes.empty? %>
+    <p>No recipes to display.</p>
+  <% else %>
+    <% @recipes.each do |recipe| %>
+      <div class="col-4">
+        <div class="recipe recipe-square" style="background: url(<%= rails_blob_url(recipe.image) %>) no-repeat center top">
+          <%= link_to recipe_path(recipe) do  %>
+            <div class="recipe-stats">
+              <div class="inner">
+                <i class="fa fa-heart"></i> <%#= recipe.total_likes_count %>
+                <i class="fa fa-comment m-l-15"></i><%#= recipe.total_comments_count %> 
+              </div>
+            </div>
+          <% end %>
+        </div>        
+      </div>
+    <% end %>
+  <% end %>
+</div>
