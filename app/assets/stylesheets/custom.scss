@@ -162,9 +162,16 @@ li.page-item {
   display: flex;
   justify-content: center;
 
-  img {
+  .profile-pic {
     border-radius: 25%;
+    height: 125px;
+    width: 125px;
   }
+}
+
+.follow-pic {
+  height: 90px;
+  width: 90px;
 }
 
 .stats {
@@ -177,7 +184,16 @@ li.page-item {
   }
 }
 
+.no-stats {
+  margin-top: 2rem;
+  text-align: center;
+}
+
 .profile-recipes {
+  margin: 2rem 0;
+}
+
+.follow {
   margin: 2rem 0;
 }
 
