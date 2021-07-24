@@ -56,7 +56,7 @@ a.navbar-brand {
 }
 
 .navbar-logo-text {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   color: white;
 }
 
@@ -142,6 +142,20 @@ li.page-item {
 
 .profile-header {
   padding: 2rem 0;
+  h1 {
+    color: #6da3a5;
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 0.75rem;
+  }
+
+  a {
+    font-size: 0.675rem;
+  }
 }
 
 .profile-image {
@@ -161,6 +175,10 @@ li.page-item {
   a {
     color: white;
   }
+}
+
+.profile-recipes {
+  margin: 2rem 0;
 }
 
 // ====================================================

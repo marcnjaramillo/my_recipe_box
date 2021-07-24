@@ -9,14 +9,16 @@
     <p>No recipes to display.</p>
   <% else %>
     <% @user.recipes.each do |recipe| %>
-      <div class="col-4">
-        <%= link_to recipe_path(recipe), "data-turbo-frame": "_top" do  %>
-          <div class="recipe-stats">
-            <div class="inner">
-              <%= image_tag(recipe.image)%>
+      <div class="col-6 col-md-4">
+          <div class="card">
+            <%= link_to recipe_path(recipe), "data-turbo-frame": "_top" do  %>
+                <%= image_tag recipe.image, class: "img-fluid img-thumbnail" %>
+            <% end %>       
+            <div class="card-body">
+              <h5 class="card-title"><%= recipe.name.titleize %></h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
           </div>
-        <% end %>       
       </div>
     <% end %>
   <% end %>

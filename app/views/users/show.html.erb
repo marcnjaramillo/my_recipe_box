@@ -1,21 +1,24 @@
-<header class="container-fluid">
+<header>
   <div class="row profile-header">
-    <div class="col-3 profile-image">
-      <%= profile_image @user, 200 %>
+    <div class="col-6 col-md-3 profile-image">
+      <%= profile_image @user, 125, 125 %>
     </div>
-    <div class="col-9 text-left">
+    <div class="col-6 col-md-9 text-left">
       <div class="row">      
         <h1 class="float-left"><%= @user.fullname %></h1>
       </div>
       <div class="row">
-        <%= render 'follow_form' if user_signed_in? && current_user.id != @user.id %>
-      </div>
-      <div class="row">
         <p>Joined <%= @user.created_at.strftime("%B %d, %Y") %></p>
       </div>
-      <div class="row">
-        <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-secondary" if can_edit_profile?(@user.id) %>
-      </div>
+      <% if user_signed_in? && current_user.id != @user.id %>
+        <div class="row">
+          <%= render 'follow_form' %>
+       </div>
+      <% elsif can_edit_profile?(@user.id) %>        
+        <div class="row">
+          <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-secondary" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </header>
