@@ -48,8 +48,8 @@
 <div class="row" id="ingredients-directions-fields">
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <h3>Ingredients</h3>
-  <div data-controller="nested-form">
-    <template data-nested-form-target="template">
+  <div data-controller="nested-ingredient">
+    <template data-nested-ingredient-target="template">
       <%= f.fields_for :recipe_ingredients, RecipeIngredient.new, child_index: 'NEW_RECORD' do |recipe_ingredient| %>
         <%= render "recipe_ingredient_fields", form: recipe_ingredient %>
       <% end %>
@@ -59,20 +59,29 @@
       <%= render "recipe_ingredient_fields", form: recipe_ingredient %>
     <% end %>
 
-    <div class="mb-3" data-nested-form-target="links">
+    <div class="mb-3" data-nested-ingredient-target="links">
       <%= link_to "Add Ingredient", "#", class: "btn btn-outline-primary", data: { action: "click->nested-ingredient#add_association" } %>
     </div>
   </div>
 
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <h3>Directions</h3>
-    <div id="directions">
+    <div data-controller="nested-direction">
+      <template data-nested-direction-target="template">    
+        <%= f.fields_for :directions, Direction.new, child_index: 'NEW_RECORD' do |direction| %>
+          <%= render "direction_fields", form: direction %>
+        <% end %>
+      </template>
+
       <%= f.fields_for(:directions) do |direction| %>
-      <%= render 'direction_fields', f: direction %>
+        <%= render "direction_fields", form: direction %>
       <% end %>
+
+      <div class="mb-3" data-nested-direction-target="links">
+        <%= link_to "Add Step", "#", class: "btn btn-outline-secondary", data:
+        { action: "click->nested-direction#add_association" } %>
+      </div>
     </div>
-    <%= link_to "Add Step", "#", class: "btn btn-outline-secondary", data:
-    { action: "click->nested-direction#add_association" } %>
   </div>
 </div>
 <div class="row" id="submitted">
