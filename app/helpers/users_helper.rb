@@ -1,7 +1,12 @@
 module UsersHelper  
-  def profile_image user, width = 200, height = 200
+  def profile_image user
     image = user.profile_image.present? ? user.profile_image : "default.png"
-    image_tag(image, width: width, height: height, class: "profile-pic m-r-10")
+    image_tag(image, class: "profile-pic m-r-10")
+  end
+
+  def follow_image user
+    image = user.profile_image.present? ? user.profile_image : "default.png"
+    image_tag(image, class: "follow-pic m-r-10")
   end
 
   def can_edit_profile? profile_id
