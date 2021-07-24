@@ -22,7 +22,11 @@
 </section>
 <section class="directions">
 <h2>Directions</h2>
-<%= @recipe.directions %>
+<ul id="ingredients-list">
+<% @recipe.directions.each do |dir| %>
+<li class="ingredients"><%= dir.body %> </li>
+<% end %>
+</ul>
 </section>
 </div>
 
