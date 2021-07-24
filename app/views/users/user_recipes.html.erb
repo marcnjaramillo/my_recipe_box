@@ -4,23 +4,25 @@
   <span> <%= link_to "Followers", followers_user_path(@user) %></span>
   <span> <%= link_to "Following", following_user_path(@user) %></span>
 </div>
-<div class="row profile-recipes">
   <% if @user.recipes.empty? %>
-    <p>No recipes to display.</p>
+    <div class="no-stats">
+      <p>No recipes to display.</p>
+    </div>
   <% else %>
-    <% @user.recipes.each do |recipe| %>
-      <div class="col-6 col-md-4">
-          <div class="card">
-            <%= link_to recipe_path(recipe), "data-turbo-frame": "_top" do  %>
-                <%= image_tag recipe.image, class: "img-fluid img-thumbnail" %>
-            <% end %>       
-            <div class="card-body">
-              <h5 class="card-title"><%= recipe.name.titleize %></h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="row profile-recipes">    
+      <% @user.recipes.each do |recipe| %>
+        <div class="col-6 col-md-4">
+            <div class="card">
+              <%= link_to recipe_path(recipe), "data-turbo-frame": "_top" do  %>
+                  <%= image_tag recipe.image, class: "img-fluid img-thumbnail" %>
+              <% end %>       
+              <div class="card-body">
+                <h5 class="card-title"><%= recipe.name.titleize %></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
             </div>
-          </div>
-      </div>
-    <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-</div>
 <% end %>
