@@ -1,0 +1,24 @@
+<%= turbo_frame_tag @user do %>
+<div class="stats">
+  <span> <%= link_to "Recipes", user_recipes_path(@user) %></span>
+  <span> <%= link_to "Followers", followers_user_path(@user) %></span>
+  <span> <%= link_to "Following", following_user_path(@user) %></span>
+</div>
+<div class="row profile-recipes">
+  <% if @user.recipes.empty? %>
+    <p>No recipes to display.</p>
+  <% else %>
+    <% @user.recipes.each do |recipe| %>
+      <div class="col-4">
+        <%= link_to recipe_path(recipe), "data-turbo-frame": "_top" do  %>
+          <div class="recipe-stats">
+            <div class="inner">
+              <%= image_tag(recipe.image)%>
+            </div>
+          </div>
+        <% end %>       
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% end %>

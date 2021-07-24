@@ -4,19 +4,19 @@ class UsersController < ApplicationController
 
 
   def show
-    @recipes = current_user.recipes
+  
+  end
+
+  def recipes
+    render 'user_recipes'
   end
 
   def following
-    @title = "Following"
-    @users = @user.following
-    render 'show_follow'
+    render 'following'
   end
 
   def followers
-    @title = "Followers"
-    @users = @user.followers
-    render 'show_follow'
+    render 'followers'
   end
 
   private

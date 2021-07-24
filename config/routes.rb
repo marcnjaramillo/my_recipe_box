@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'users/:username/profile', to: 'users#show', as: :user
   resources :users, param: :username do
+    get 'users/:username/recipes', to: 'users#recipes', as: :recipes
     member do
       get :following, :followers
     end

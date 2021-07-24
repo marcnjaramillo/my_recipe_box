@@ -74,6 +74,6 @@ class RecipesController < ApplicationController
       :quantity,
       :_destroy,
       ingredient_attributes: [:id, :name, :_destroy]],
-      direction_attributes: [:id, :body, :_destroy])
+      directions_attributes: [:id, :body, :_destroy])
   end
 end
