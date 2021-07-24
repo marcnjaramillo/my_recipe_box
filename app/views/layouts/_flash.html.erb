@@ -1,19 +1,19 @@
 <%if flash[:notice] %>
-<div class="alert alert-dismissible alert-success">
+<div id="notification" class="alert alert-dismissible alert-success" data-controller="notification">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <%=flash[:notice]%>
 </div>
 <%end%>
 
 <%if flash[:alert] %>
-    <div class="alert alert-dismissible alert-warning">
+    <div id="notification" class="alert alert-dismissible alert-warning" data-controller="notification">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <%= flash[:alert] %>
     </div>
 <% end %>
 
 <%if flash[:error]%>
-    <div class="alert alert-dismissible alert-danger">
+    <div id="notification" class="alert alert-dismissible alert-danger" data-controller="notification">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <%=flash[:error]%>
     </div>
