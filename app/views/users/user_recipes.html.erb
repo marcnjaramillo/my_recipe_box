@@ -1,9 +1,5 @@
 <%= turbo_frame_tag @user do %>
-<div class="stats">
-  <span> <%= link_to "Recipes", user_recipes_path(@user) %></span>
-  <span> <%= link_to "Followers", followers_user_path(@user) %></span>
-  <span> <%= link_to "Following", following_user_path(@user) %></span>
-</div>
+  <%= render "profile_stats" %>
   <% if @user.recipes.empty? %>
     <div class="no-stats">
       <p>No recipes to display.</p>
@@ -14,7 +10,7 @@
         <div class="col-6 col-md-4">
             <div class="card">
               <%= link_to recipe_path(recipe), "data-turbo-frame": "_top" do  %>
-                  <%= image_tag recipe.image, class: "img-fluid img-thumbnail" %>
+                  <%= recipe_thumbnail recipe %>
               <% end %>       
               <div class="card-body">
                 <h5 class="card-title"><%= recipe.name.titleize %></h5>

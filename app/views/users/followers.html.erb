@@ -1,9 +1,5 @@
 <%= turbo_frame_tag @user do %>
-  <div class="stats">
-    <span> <%= link_to "Recipes", user_recipes_path(@user) %></span>
-    <span> <%= link_to "Followers", followers_user_path(@user) %></span>
-    <span> <%= link_to "Following", following_user_path(@user) %></span>
-  </div>
+  <%= render "profile_stats" %>
   <% if @user.followers.empty? %>
     <div class="no-stats">
       <p>No followers yet.</p>

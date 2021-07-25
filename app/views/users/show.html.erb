@@ -24,11 +24,7 @@
 </header>
 
 <main>
-<%= turbo_frame_tag @user, src: user_recipes_path(@user) do%>
-  <div class="stats">
-    <span> <%= link_to "Recipes", user_recipes_path(@user), collection: @user.recipes %></span>
-    <span> <%= link_to "Followers", followers_user_path(@user), collection: @user.followers %></span>
-    <span> <%= link_to "Following", following_user_path(@user), collection: @user.following %></span>
-  </div>
-<% end %>
+  <%= turbo_frame_tag @user, src: user_recipes_path(@user) do%>
+    <%= render "profile_stats" %>
+  <% end %>
 </main>
