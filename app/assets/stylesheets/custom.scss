@@ -1,4 +1,5 @@
 $slate-grey: #736E6B;
+$turquoise: #6da3a5;
 
 header {
   margin-top: 3.75rem;
@@ -86,11 +87,13 @@ li.page-item {
 // HOMEPAGE STYLES
 // ====================================================
 
-.hero-image {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+figure {  
+  .hero-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
 }
 
 // ====================================================
@@ -143,8 +146,8 @@ li.page-item {
 .profile-header {
   padding: 2rem 0;
   h1 {
-    color: #6da3a5;
-    font-size: 1.25rem;
+    color: $turquoise;
+    font-size: 1.375rem;
     font-weight: 300;
     margin-bottom: 0;
   }
@@ -174,13 +177,26 @@ li.page-item {
   width: 90px;
 }
 
+#follow-btn {
+  background-color: $turquoise;
+  color: white;
+  font-size: 0.675rem;
+}
+
+#unfollow-btn {
+  background-color: rgb(150, 59, 26);
+  color: white;
+  font-size: 0.675rem;
+}
+
 .stats {
-  background-color: #6da3a5;
+  background-color: $turquoise;
   color: white;
   display: flex;
   justify-content: space-around;
   a {
     color: white;
+    font-size: 1.125rem;
   }
 }
 
@@ -227,6 +243,12 @@ li.page-item {
 
 .recipe-header {
   text-align: center;
+}
+
+.card {
+  img.recipe-thumbnail {
+    height: 150px;
+  }
 }
 
 @media (min-width: 1024px) {
