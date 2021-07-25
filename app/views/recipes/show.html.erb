@@ -1,7 +1,7 @@
 <section class="container" data-controller="protected" data-protected-refresh-interval-value="10">
 <div class="row">
 <div class="col col-md-8">
-<%= image_tag @recipe.image, class: "img-fluid" %>
+<%= recipe_image @recipe %>
 <h4 class="recipe-creator"> Recipe by: <%= link_to @recipe.user.first_name.capitalize, user_path(@recipe.user.id), id: "user" %></h4>
 <h1 class="recipe-header">
 <%= @recipe.name.split.map(&:capitalize).join(' ') %>

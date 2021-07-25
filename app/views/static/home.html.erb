@@ -9,13 +9,18 @@
 </header>
 
 <main>
-
-  <div class="row">
-    <section class="flex-col col-xs-12 col-lg-12" >
+  <section class="row">
     <% @recipes.each do |recipe| %>
-      <%= image_tag recipe.image, class: "img-fluid" %>
-      <%= recipe.name %>
+      <div class="col-6 col-md-4">
+          <div class="card">
+            <%= link_to recipe_path(recipe), "data-turbo-frame": "_top" do  %>
+                <%= recipe_thumbnail recipe %>
+            <% end %>       
+            <div class="card-body">
+              <h5 class="card-title"><%= recipe.name.titleize %></h5>
+            </div>
+          </div>
+      </div>
     <% end %>
-    </section>
-  </div>
+  </section>
 </main>
