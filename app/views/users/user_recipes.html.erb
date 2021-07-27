@@ -1,5 +1,9 @@
 <%= turbo_frame_tag @user do %>
-  <%= render "profile_stats" %>
+  <div class="stats">
+    <span class="current"> <%= link_to "Recipes", user_recipes_path(@user), collection: @user.recipes %></span>
+    <span> <%= link_to "Followers", followers_user_path(@user), collection: @user.followers %></span>
+    <span> <%= link_to "Following", following_user_path(@user), collection: @user.following %></span>
+  </div>
   <% if @user.recipes.empty? %>
     <div class="no-stats">
       <p>No recipes to display.</p>
