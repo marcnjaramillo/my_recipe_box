@@ -7,14 +7,13 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many :recipes, dependent: :destroy
   has_many :comments
-  has_many :active_relationships, class_name:  "Relationship", foreign_key: "follower_id", dependent:   :destroy
-  has_many :passive_relationships, class_name:  "Relationship", foreign_key: "followed_id", dependent:   :destroy
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following, through: :active_relationships,  source: :followed
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :followers, through: :passive_relationships
 
-  def self.roles
-    ['Admin', 'User']
-  end
+  validates_presence_of :first_name, :last_name, :username, :admin
+  validates_uniqueness_of :username, :email
 
   def fullname
     "#{first_name} #{last_name}"
